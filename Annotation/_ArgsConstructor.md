@@ -1,6 +1,6 @@
 ### @RequiredArgsConstructor
 
-초기화 되지 않은 `final` 필드와 `@NonNull` 어노테이션이 붙은 필드에 대한 생성자 생성
+초기화 되지 않은 `final` 필드와 `@NotNull` 어노테이션이 붙은 필드에 대한 생성자 생성
 
 
 
