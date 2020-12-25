@@ -1,7 +1,9 @@
 package syxxn.com.github.jwt.service.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sun.security.util.Password;
 import syxxn.com.github.jwt.entity.user.User;
 import syxxn.com.github.jwt.entity.user.UserRepository;
 import syxxn.com.github.jwt.exception.UserAlreadyExistsException;
@@ -12,6 +14,7 @@ import syxxn.com.github.jwt.payload.request.SignInRequest;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void signIn(SignInRequest signInRequest) {
@@ -24,7 +27,7 @@ public class UserServiceImpl implements UserService{
                 User.builder()
                         .email(signInRequest.getEmail())
                         .name(signInRequest.getName())
-                        .password(signInRequest.getPassword())
+                        .password(passwordEncoder.encode(signInRequest.getPassword()))
                         .build()
         );
     }
