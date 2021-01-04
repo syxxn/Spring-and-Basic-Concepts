@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import syxxn.com.github.jwt.payload.request.SignInRequest;
 import syxxn.com.github.jwt.service.user.UserService;
 
-@RestController
-@RequiredArgsConstructor
 @RequestMapping("/user")
+@RequiredArgsConstructor
+@RestController
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
-    void signIn(@RequestBody SignInRequest signInRequest){
+    void signIn(@RequestBody SignInRequest signInRequest) {
         userService.signIn(signInRequest);
     }
 

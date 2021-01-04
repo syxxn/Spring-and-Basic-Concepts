@@ -1,5 +1,6 @@
 package syxxn.com.github.jwt.entity.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,20 +10,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 
-@Entity
+
 @Builder
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class User {
 
-    @Id
-    @Email
-    String email;
+    @Id @Email
+    private String email;
 
     @Column(nullable = false, length = 30)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String password;
+    private String password;
 
 }
