@@ -99,3 +99,10 @@ public PasswordEncoder passwordEncoder() {
 }
 ```
 
+
+
+#### Filter
+
+![image info](springsecurity2.png)
+
+클라이언트에서 스프링을 들어온 다음 여러 필터를 거쳐 chain(쉽게 생각하면 운반사)에 request 변수와 response 변수가 담긴다. 로직을 거쳐 response에 값을 담아 다시 필터를 거쳐 클라이언트에게 반환한다.
