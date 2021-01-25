@@ -54,7 +54,9 @@ ____
 
 \- **query string 파라미터**: 쿼리문 내의 파라미터. 엔드포인트가 끝난 뒤 물음표 뒤에 온다.
 
-> Query String으로 
+> Query String으로 배열을 보낼때는
+>
+> `?values=firstV, secondV, thirdV` 또는 `?values=firstV&values=secondV&values=thirdV` 형식으로 보내면 된다.
 
 \- **request body 파라미터**: 리퀘스트 바디에 포함된 파라미터. 보통 JSON 형식으로 제출된다.
 
