@@ -54,8 +54,7 @@ JUnit은 Java에서 독립된 단위테스를 지원해준다.
 > Junit4에서 사용할 수 있는 어노테이션이다.
 >
 > ```java
-> implementation 'junit:junit:4.12' //또는
-> import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+> implementation 'junit:junit:4.12'
 > ```
 
 @RunWith는 현재 테스트 코드가 스프링을 실행하는 역할을 할 것이라는 일종의 알림 역할을 한다. @RunWith에 Runner 클래스를 설정하면 JUnit에 내장된 runner 대신 이 클래스를 사용한다.
