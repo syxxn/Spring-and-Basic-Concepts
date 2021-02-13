@@ -71,3 +71,53 @@ public String callAPI() {
 ```
 
 > 출처 : https://vmpo.tistory.com/27
+
+
+
+> GET
+
+```java
+private CoordinateResponse coordinate(String address) throws UnsupportedEncodingException, URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String query = "&addressFlag=F00" + "&format=json";
+
+        headers.add("Accept-Language", "ko");
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+
+        URI url = new URI("https://apis.openapi.sk.com/tmap/geo/postcode?version=1&appKey=" + appKey + "&addr=" + URLEncoder.encode(address,"UTF-8") + query);
+
+        RequestEntity<String> rq = new RequestEntity<>(headers, HttpMethod.GET, url);
+        ResponseEntity<CoordinateResponse> responseEntity = restTemplate.exchange(rq, CoordinateResponse.class);
+
+        return responseEntity.getBody();
+    }
+```
+
+
+
+> POST
+
+```java
+private RouteGuidanceResponse routeGuidance(RouteGuidanceRequest request) throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+
+        String body = "endX=" + request.getEndX()
+                + "&endY=" + request.getEndY()
+                + "&startX=" + request.getStartX()
+                + "&startY=" + request.getStartY()
+                + "&totalValue=" + 2;
+
+        headers.add("Accept-Language", "ko");
+        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+
+        URI url = URI.create("https://apis.openapi.sk.com/tmap/routes?version=1&format=json");
+        HttpEntity entity = new HttpEntity(body, headers);
+
+        ResponseEntity<RouteGuidanceResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, RouteGuidanceResponse.class);
+
+        return responseEntity.getBody();
+    }
+```
+
