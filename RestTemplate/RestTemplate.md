@@ -46,6 +46,7 @@ public String callAPI() {
  
             LinkedHashMap lm = (LinkedHashMap)resultMap.getBody().get("boxOfficeResult");
             ArrayList<Map> dboxoffList = (ArrayList<Map>)lm.get("dailyBoxOfficeList");
+            //Map은 키 : 밸류로 이루어진 형태
             LinkedHashMap mnList = new LinkedHashMap<>();
             for (Map obj : dboxoffList) {
                 mnList.put(obj.get("rnum"),obj.get("movieNm"));
@@ -77,21 +78,26 @@ public String callAPI() {
 > GET
 
 ```java
-private CoordinateResponse coordinate(String address) throws UnsupportedEncodingException, URISyntaxException {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        String query = "&addressFlag=F00" + "&format=json";
+private Coordinate getCoordinate (String address) throws URISyntaxException, UnsupportedEncodingException, JsonProcessingException {
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
 
-        headers.add("Accept-Language", "ko");
-        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+    headers.add("Accept-Language", "ko");
+    headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE
+            + ";charset=UTF-8");
 
-        URI url = new URI("https://apis.openapi.sk.com/tmap/geo/postcode?version=1&appKey=" + appKey + "&addr=" + URLEncoder.encode(address,"UTF-8") + query);
+    URI url = new URI("https://apis.openapi.sk.com/tmap/geo/postcode?version=1&appKey="
+            + appKey + "&addr=" + URLEncoder.encode(address,"UTF-8") + "&addressFlag=F00&format=json");
 
-        RequestEntity<String> rq = new RequestEntity<>(headers, HttpMethod.GET, url);
-        ResponseEntity<CoordinateResponse> responseEntity = restTemplate.exchange(rq, CoordinateResponse.class);
+    ObjectMapper mapper = new ObjectMapper();
+    Map<String, Map> response = restTemplate.getForObject(url, Map.class);
 
-        return responseEntity.getBody();
-    }
+    Map<String, Map> coordinate =
+            mapper.readValue(mapper.writeValueAsString(response.get("coordinateInfo")), Map.class);
+    List<Coordinate> info = Arrays.asList(mapper.readValue(mapper.writeValueAsString(coordinate.get("coordinate")), Coordinate[].class));
+
+    return info.get(0);
+}
 ```
 
 
@@ -99,25 +105,30 @@ private CoordinateResponse coordinate(String address) throws UnsupportedEncoding
 > POST
 
 ```java
-private RouteGuidanceResponse routeGuidance(RouteGuidanceRequest request) throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
+private RouteGuidanceResponse routeGuidance(RouteGuidanceRequest request) throws URISyntaxException, JsonProcessingException {
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
 
-        String body = "endX=" + request.getEndX()
-                + "&endY=" + request.getEndY()
-                + "&startX=" + request.getStartX()
-                + "&startY=" + request.getStartY()
-                + "&totalValue=" + 2;
+    RouteBody routeBody = RouteBody.builder()
+            .endX(request.getEndX())
+            .endY(request.getEndY())
+            .startX(request.getStartX())
+            .startY(request.getStartY())
+            .totalValue(2)
+            .build();
 
-        headers.add("Accept-Language", "ko");
-        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
+    headers.add("Accept-Language", "ko");
+    headers.add("appKey",appKey);
+    headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
-        URI url = URI.create("https://apis.openapi.sk.com/tmap/routes?version=1&format=json");
-        HttpEntity entity = new HttpEntity(body, headers);
+    URI url = new URI("https://apis.openapi.sk.com/tmap/routes?version=1");
 
-        ResponseEntity<RouteGuidanceResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, entity, RouteGuidanceResponse.class);
+    ObjectMapper mapper = new ObjectMapper();
+    HttpEntity<RouteBody> rq = new HttpEntity<>(routeBody, headers);
+    Map<String, Map> response = restTemplate.postForObject(url, rq, Map.class);
 
-        return responseEntity.getBody();
-    }
+    List<RouteGuidanceResponse> map =
+            Arrays.asList(mapper.readValue(mapper.writeValueAsString(response.get("features")), RouteGuidanceResponse[].class));
+    return map.get(0);
+}
 ```
-
