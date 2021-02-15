@@ -1,54 +1,40 @@
 # CORS
 
-CORS란 **교차 출처 자원 공유(Cross-Origin Resource Sharing)**의 줄임말로, 추가 HTTP 헤더를 사용하여, 한 출처에서 실행 중인 웹 애플리케이션이 다른 출처의 선택한 자원에 접근할 수 있도록 하는 구조이다. **REST API의 리소스가 비 단순 cross-origin HTTP 요청을 받을 경우 CORS 지원을 활성화**해야 합니다.
+CORS란 **교차 출처 자원 공유(Cross-Origin Resource Sharing)**의 줄임말로, 추가 HTTP 헤더를 사용하여, 한 출처에서 실행 중인 웹 애플리케이션이 다른 출처의 선택한 자원에 접근할 수 있도록 하는 구조이다. `교차 출처`라고 하는 것은 `다른 출처`를 의미한다. **REST API의 리소스가 비 단순 cross-origin HTTP 요청을 받을 경우 CORS 지원을 활성화**해야 한다.
 
 
 
-Cross-Site HTTP Requests는 **Same Origin Policy**를 적용 받기 때문에 cross-site http request가 불가능하다.
+#### 출처
 
-> Same-Origin Policy는 어떤 출처에서 불러온 문서나 스크립트가 **다른 출처에서 가져온 리소스와 상호작용하는 것을 제한**하는 보안 방식이다.
-
- 즉, 프로토콜, 호스트명, 포트가 같아야만 요청이 가능하다. **다른 origin(출처)에서 내 자원에 함부로 접근 못하게 하기 위해서 사용**하는 것이다.(내가 허용한 출처에서만 요청할 수 있도록)
+**출처(Origin)**이란, url의 protocol, host, port 번호를 모두 합친 것, 즉 서버의 위치를 찾아가기 위해 필요한 가장 기본적인 것들을 합쳐 놓은 것이다.
 
 
 
-예를 들어 도메인 A(http://domain/a)의 HTML 페이지가 img 엘리먼트를 통해 도메인 B(http://domain/b)의 이미지에 대한 요청을 생성하는 것이다.
+웹에서는 다른 출처로의 리소스 요청을 제한하는 것과 관련된 CORS와 SOP(Same-Origin Policy) 정책이 존재한다. **SOP**는 '같은 출처에서만 리소스를 공유할 수 있다'라는 규칙을 가진 정책이다. 무작정 요청을 막을 순 없어서 몇 가지 예외 조항을 두고, 이에 해당하는 것은 허용하도록 하는 것이 CORS이다.
 
 
 
-웹 애플리케이션은 리소스가 자신의 출처(도메인, 프로토콜, 포트)와 다를 때 교차 출처 HTTP 요청을 실행한다.
+두 개의 출처가 같다고 판단하는 기준은 두 URL의 `Scheme`, `Host`, `Port` 세 가지가 동일하냐는 것이다.
 
-이에 대한 응답으로 서버는 `Access-Control-Allow-Origin` 헤더를 다시 보낸다.
-
-
-
-보안 상의 이유로, 브라우저는 스크립트에서 시작한 교차 출처 HTTP 요청을 제한한다.
+> URL에서 가장 앞에 자원에 접근할 방법을 정의해 둔 프로토콜 자리를 scheme이라 한다.
 
 
 
-브라우저가 리소스를 요청할 때 추가적인 헤더에 정보(내 origin은 뭐고 어떤 메소드를 사용해서 요청할 거고 어떤 헤더를 포함할건지 등등) 를 담아서 서버에 전송한다. 서버는 서버가 응답할 수 있는 origin들을 헤더에 담아서 브라우저에 보낸다. 브라우저는 받은 헤더를 보고 허용된 origin이라면 리소스 전송을 허용하고, 만약 불가능하다면 에러를 발생시킨다.
+____
 
 
 
-CORS 체제는 브라우저와 서버 간의 안전한 교차 출처 요청 및 데이터 전송을 지원합니다. 
-
-최신 브라우저는 `XMLHttpRequest` 또는 Fetch와 같은 API에서 CORS를 사용하여 교차 출처 HTTP 요청의 위험을 완화한다.
-
-
-
-### 왜?
+#### 왜 발생하는가?
 
 > CORS 에러는 브라우저에서 서로 다른 도메인/포트의 서버로 요청이 갈 때 **브라우저에서 발생**한다.
 
-브라우저(1111 포트) - 프론트 서버(1111 포트) - 백엔드 서버(2222 포트)
+프론트와 서버의 ip주소가 다르기 때문에 발생한다.
 
-cors는 브라우저에서 발생하는 것이기 때문에, **프론트서버-백엔드서버간 요청은 포트가 다르더라도 에러가 나지 않는다**
-
-> 프론트와 백엔드의 ip주소가 다르기 때문에 발생한다.
->
 > ip 주소가 같으면 오류 안난다.
 
-### 해결법
+
+
+#### 해결법
 
 + 미들웨어 설치 & 설정(프론트/백 둘 다 해당)
 
@@ -57,3 +43,36 @@ cors는 브라우저에서 발생하는 것이기 때문에, **프론트서버-�
   > 서버단에서 특정 도메인에서의 요청을 허용해 줌.
 
 + **프록시방식 사용** : 브라우저에서 프론트 서버로 요청 > 프론트서버에서 백엔드 서버로 요청
+
+
+
+____
+
+
+
+```java
+//@EnableWebSecurity
+@Configuration
+public class SecurityConfig /*extends WebSecurityConfigurerAdapter*/ implements WebMvcConfigurer {
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("*");
+    }
+
+}
+```
+
++ `@EnableWebSecurity`는 웹 보안을 활성화한다. `WebSecurityConfigurerAdapter`를 상속받은 config 클래스에 이 어노테이션을 달면, SpringSecurityFilterChain이 자동으로 포함된다.
+
++ `@Configuration`은 `@Bean`을 사용하는 클래스 위에 반드시 붙여 해당 클래스에서 Bean을 등록하고자 함을 명시해주어야 한다.
+
+  이 어노테이션은 설정파일임을 알려준다.
+
++ `WebSecurityConfigurerAdapter`는 WebSecurity와 HttpSecurity 모두 사용자가 원하는대로 맞춤 변경할 수 있도록 하는 편리한 클래스이다.
++ `WebMvcConfigurer`에는 Spring MVC에서 유용하게 사용되는 기능들이 선언되어 있어서, 웹과 관련된 처리를 하기 위해서는 구현하는 것이 좋다.
++ `registry.addMapping`을 이용해서 CORS를 적용할 URL 패턴을 정의할 수 있다.
++ `allowedOrigins` 메소드를 이용해서 자원 공유를 허락할 출처를 지정할 수 있다. "*"는 모든 Origin을 허락하는 것이다.
++ `allowedMethods`를 이용해서 허용할 HTTP method를 지정할 수 있다. 이것 또한 "*"는 모든 메소드를 허락하는 것이다.
