@@ -16,7 +16,7 @@ Spring Data JPA는 JPA(Java Persistence API)를 편리하게 사용하도록 도
 
 ### 그렇다면 JPA란 무엇일까?
 
-JPA란 ORM을 사용하기 위한 인터페이스를 모아둔 것이다.
+JPA란 자바 애플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스이다. `javax.persistance`
 
 + JPA는 기존의 반복 물론이고, 기본적인 SQL도 직접 만들어서 실행해준다.
 + JPA를 사용하면, SQL과 데이터 중심의 설계에서 객체 중심의 설계로 패러다임을 전환할 수 있다.
@@ -55,9 +55,9 @@ Spring Data JPA를 사용하기 위해서는
 
   
 
-
-
 실무에서는 JPA와 스프링 데이터 JPA를 기본으로 사용하고, 복잡한 동적 쿼리는 `Querydsl`이라는 라이브러리를 사용하면 된다.
+
+
 
 
 
@@ -87,6 +87,14 @@ Hibernate는 JPA를 사용하기 위해서 JPA를 구현한 ORM 프레임워크�
 
 
 
-구글 트렌드에 검색해보면 Mybatis보다 JDBC를 노출하지 않고 ORM 기술을 사용하는 JPA를 선호한다는 것을 알 수 있다. 그만큼 JDBC를 직접 사용하는 Mybatis보다 JDBC를 노출하지 않고 ORM 기술을 사용하는 JPA를 선호한다는 것을 알 수 있다.
+JDBC를 직접 사용하는 Mybatis보다 JDBC를 노출하지 않고 ORM 기술을 사용하는 JPA를 선호한다.
 
 > JDBC란 자바에서 데이터베이스에 접속할 수 있도록하는 자바 API이다.
+
+
+
+____
+
+
+
+JDBC란 자바에서 데이터베이스에 접속할 수 있도록 하는 API이며, JPA는 JDBC를 노출하지 않고 ORM 기술을 사용한다. JPA는 Java에서 ORM을 간편하게 사용하기 위한 것이며, Hibernate를 통해 구현을 하였다. Spring Data JPA는 JPA를 더욱 쓰기 간편하게끔한 것이다. Spring Data JPA에는 우리가 사용하고 있는 CrudRepository<>, JpaRepository 등과 같은 것들이 있다.
