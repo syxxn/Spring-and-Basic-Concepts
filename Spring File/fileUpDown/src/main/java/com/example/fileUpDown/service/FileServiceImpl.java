@@ -3,6 +3,7 @@ package com.example.fileUpDown.service;
 import com.example.fileUpDown.entity.File;
 import com.example.fileUpDown.entity.FileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -24,17 +25,19 @@ public class FileServiceImpl implements FileService {
 
     private final FileRepository fileRepository;
 
+    @Value("${file.upload-dir}")
+    private String PATH;
+
     @Override
-    public void upload(List<MultipartFile> files) throws IOException {
+    public void upload(List<MultipartFile> files) {
         for(MultipartFile file : files) {
             String originalFileName = file.getOriginalFilename();
-            java.io.File dest = new java.io.File("D:/File/"+originalFileName);
-            file.transferTo(dest);
+            java.io.File f = new java.io.File(PATH+originalFileName);
 
             fileRepository.save(
                     File.builder()
                             .originalName(originalFileName)
-                            .path(dest.getPath())
+                            .path(f.getPath())
                             .build()
             );
         }
