@@ -16,6 +16,17 @@ implementation 'it.ozimov:embedded-redis:0.7.3'
 
 
 
+application.yml에 redis 설정 추가
+
+```java
+spring:
+  redis:
+    host: localhost
+    port: 6379
+```
+
+
+
 EmbeddedRedis를 사용하면 redis 오류가 날 때가 있다.
 
 ```
