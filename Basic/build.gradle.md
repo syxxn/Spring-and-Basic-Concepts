@@ -19,6 +19,8 @@ gradle 의존성 옵션에는 `implementation`, `compileOnly`, `runtimeOnly`, `a
 + compileOnly는 compile 시에만 빌드하고 빌드 결과물에는 포함하지 않는다. 이것은 runtime(실행 중)일 때 필요없는 라이브러리인 경우 사용한다.
 
   > ex ) runtime 환경에 이미 라이브러리가 제공될 때
+  >
+  > -> lombok 같은 경우, @Getter를 사용하면 getter 메소드를 만들어서 저장한다. 따라서 runtime때는 롬복이 필요 없다.
 
   ```java
   compileOnly 'org.projectlombok:lombok'
