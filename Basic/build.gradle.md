@@ -46,3 +46,16 @@ gradle 의존성 옵션에는 `implementation`, `compileOnly`, `runtimeOnly`, `a
 
   
 
+```
+spring-boot-starter-web
+
+ -  Spring MVC를 사용한 RESTful서비스를 개발하는데 사용.
+ 
+spring-boot-starter-test
+
+ - Junit, Hamcrest, Mockito를 포함하는 스프링 어플리케이션을 테스트 가능하도록 한다.
+ 
+ spring-boot-starter-web-services
+ - SOAP(Simple Object Access Protocol) 서비스 개발 시 사용함
+```
+
