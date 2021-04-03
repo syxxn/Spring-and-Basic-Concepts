@@ -12,6 +12,9 @@ public Date eventDate;
 ```
 
 
+
+순환 참조를 막기 위해 아래의 것들을 사용한다.
+
 ### @JsonManagedReference
 
 
