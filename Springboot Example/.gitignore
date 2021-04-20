@@ -19,6 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+!idea/workspace.xml
 *.iws
 *.iml
 *.ipr
