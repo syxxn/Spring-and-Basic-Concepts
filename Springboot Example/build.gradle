@@ -1,0 +1,30 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example' //패키지 그룹 이름
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11' //JDK 버전
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral() //원격 저장소 / 최근에는 jcenter 저장소도 나왔음
+}
+
+dependencies { //버전을 명시하지 않아야만 맨 위에 작성한 plugin의 버전을 따라가게 된다 -> 라이브러리들의 버전 관리가 한 곳에 집중되고, 버전 충돌 문제도 해결됨
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
