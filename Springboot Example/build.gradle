@@ -20,8 +20,14 @@ repositories {
 
 dependencies { //버전을 명시하지 않아야만 맨 위에 작성한 plugin의 버전을 따라가게 된다 -> 라이브러리들의 버전 관리가 한 곳에 집중되고, 버전 충돌 문제도 해결됨
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    compile('org.springframwork.boot:spring-boot-starter-data-jpa')
+    compile('com.h2database:h2')
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
