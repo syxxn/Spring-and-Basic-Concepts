@@ -15,4 +15,6 @@
 ### strategy = GenerationType.Auto
 
 + 기본 설정 값
-+ 다른 전략을 자동으로 지정한다.
++ 다른 전략을 IDENTITY, SEQUENCE, TABLE 중 적절한 것 하나로 지정한다.
+> Spring Boot 2.0으로 넘어오면서 JPA의 GeneratedValue의 기본 설정이 SEQUENCE방식으로 되어 있다.
+> MySQL은 SEQUENCE 방식을 지원하지 않기 때문에 AUTO를 사용하면 TABLE 전략을 사용한다.
