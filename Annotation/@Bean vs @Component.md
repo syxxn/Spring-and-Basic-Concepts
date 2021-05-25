@@ -54,3 +54,10 @@ public class AuthenticationFacade {
 @Component를 사용한 Bean의 의존성 주입은 @AutoWired 어노테이션을 이용할 수도 있고,
 
 `@NoArgsConstuctor`, `@AllArgsConstructor`, `@RequiredArgsConsturctor` 등을 이용할 수도 있다.
+
+> 빈을 주입하는 방법은 다음과 같다.
+@Recource
+이름으로 참조할 Bean을 검색하여 주입한다. (Java 표준)
+
+@Autowired
+타입으로 참조할 Bean을 찾아 주입한다. (spring 표준)
