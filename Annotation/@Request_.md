@@ -6,6 +6,64 @@
 
 + 어떤 URL을 어떤 메소드가 처리할 지 mapping해주는 어노테이션이다
 + 보통 클래스 위에 기본 url을 설정해 줄 때 사용한다.
++ 클래스와 메소드 레벨 모두에서 사용할 수 있다.
+
+> 대부분의 경우, 메소드 레벨에서는HTTP 메소드 특정 변형 @GetMapping, @PostMapping, @PutMapping, @DeleteMapping 또는 @PatchMapping 중 하나를 사용하는 것을 선호 한다
+
+- 어떤 경로를 한 메서드에 처리하고 싶다면, 배열로 경로 목록을 지정하면 됨
+
+```
+public class Ne{
+	@RequestMapping({'/main','/index'})
+    //보통 URI를 설정 해주는데, 괄호 안에 꼭 "문자열"
+	public String list(ModeMap model){
+	}
+}
+```
+
+#### @PostMapping
+
+: Post의 HTTP(S) request를 처리함
+
+```
+@PostMapping("/message/{messageId}")
+    public void readMessage(@PathVariable Integer messageId) {
+        messageService.readMessage(messageId);
+    }
+```
+
+#### @PutMapping
+
+: Put의 HTTP(S) request를 처리함
+
+```
+@PutMapping
+public TokenResponse refreshToken(@RequestHeader("X-Refresh-Token") String refreshToken){
+        return authService.refreshToken(refreshToken);
+}
+```
+
+#### @GetMapping
+
+: @GetMapping 어노테이션이 있는 메소드는 주어진 URI 표현식과 일치하는 HTTP 요청을 처리함
+
+```
+@GetMapping("/{boardId}")
+public BoardContentResponse getBoardContent(@PathVariable Integer boardId) {
+    return boardService.getBoardContent(boardId);
+}
+```
+
+#### @DeleteMapping
+
+: Delete의 HTTP(S) request를 처리함
+
+```
+@DeleteMapping("/{boardId}")
+    public void deleteBoardContent(@PathVariable Integer boardId) {
+        boardService.deleteBoard(boardId);
+    }
+```
 
 
 
