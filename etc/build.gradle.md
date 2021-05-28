@@ -16,6 +16,13 @@ gradle 의존성 옵션에는 `implementation`, `compileOnly`, `runtimeOnly`, `a
 
   > starter는 버전 관리를 도와주기 때문에 starter를 사용한다면, 버전을 따로 명시 해주지 않아도 된다.
 
+compile은 모듈이 수정되었을 때 직간접적으로 의존하고 있는 모든 모듈들이 다시 컴파일 된다. 또한 연결된 모든 모듈의 API가 노출되게 된다.
+
+반대로 implementation은 모듈이 수정되었을 때 직업 의존하고 있는 모듈만 다시 컴파일 되게 되며, 연결된 모듈들의 API가 노출되지 않는다.
+
+따라서 implementation은 빠르고, 모듈들의 API들을 노출시키지 않을 수 있기 때문에 implementation이 추천된다. **compile과 implementation은 바꿔서 사용할 수 있다**.
+
+
 + compileOnly는 compile 시에만 빌드하고 빌드 결과물에는 포함하지 않는다. 이것은 runtime(실행 중)일 때 필요없는 라이브러리인 경우 사용한다.
 
   > ex ) runtime 환경에 이미 라이브러리가 제공될 때
