@@ -53,7 +53,9 @@ networks:
 
 + `redis` :
 
-  + redis는 Docker hub에 이미 올라가 있기 때문에 이미지 이름은 꼭 `redis`로 작성해야 한다. container_
+  + redis는 Docker hub에 이미 올라가 있기 때문에 이미지 이름은 꼭 `redis`로 작성해야 한다. 
+
+  + container_name은 컨테이너 이름을 설정하는 것으로, 설정하고 싶은 것으로 하면 된다.
 
   + redis에서 volumes는 데이터를 저장할 위치를 지정하는 것이므로 필수로 작성해야 한다.
 
