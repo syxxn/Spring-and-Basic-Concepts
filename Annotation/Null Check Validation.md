@@ -10,6 +10,10 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 
 
+validation 어노테이션은 @Valid 없이는 동작하지 않고, null이 들어오면 400을 띄운다.
+
+> @NonNull은 lombok 어노테이션으로서, null이 들어오면 500을 내보낸다.
+
 
 
 ### @NotNull
@@ -19,6 +23,8 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 그렇기 대문에 만약 `""`(초기화된 문자열)이나 `" "`(공백)이 들어가면 안될 때는 사용하면 안된다.
 
 즉, 초기화나 공백의 값이 들어왔을 때는 괜찮지만, Null로 들어온 경우에는 오류가 나도록 해야 할 때 사용하는 어노테이션이다.
+
+> Entity 컬럼에 붙여도 적용된다. `nullable=false`와 달리 유효성 검사를 해주기 때문에 더 안전할 수도 있다.
 
 
 
