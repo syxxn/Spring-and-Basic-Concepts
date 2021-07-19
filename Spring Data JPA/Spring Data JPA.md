@@ -69,10 +69,11 @@ Spring Data JPA를 사용하기 위해서는
 ### Hibernate
 
 Hibernate는 JPA를 사용하기 위해서 JPA를 구현한 ORM 프레임워크이다.  
+Hibernate 외에는 OpenJPA, ObjectDB 등이 있다.
 
 
 
-##### ORM
+##### ORM(Object Relational Mapping)
 
 + RDB 테이블을 객체지향적으로 사용하기 위한 기술이다. 
 
